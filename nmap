@@ -1,0 +1,19 @@
+nmap -p U:137,138,T:134,135,139,445 -O -v -Pn --defeat-rst-ratelimit --open --osscan-limit --script nbstat.nse,smb-enum-users,smb-vuln-ms17-010,smb-double-pulsar-backdoor 192.xx.xx.0/22 10.28.28.16/30 17.xx.xx.xx/22  -oN /XMLs/Wannacry-EAST-$(date +"%F").xml
+
+
+echo $(cat /XMLs/Waukesha/W* | grep 'State: VULNERABLE' -B 25 | grep -e 'Nmap scan report for' -e NetBIOS) > /XMLs/WaukeshaReport.txt
+printf " \n"
+echo "========================" >> /XMLs/WaukeshaReport.txt
+printf " \n"
+echo "Script : nmap -p U:137,138,T:134,135,139,445 -O -v -Pn --defeat-rst-ratelimit --open --osscan-limit --script nbstat.nse,smb-enum-users,smb-vuln-ms17-010,smb-double-pulsar-backdoor 192.xx.0/22 10.28.28.16/30 17.45.220.0/22 -oN /XMLs/Waukesha/WAU-Wannacry-EAST-$(date +"%F").xml"  >> /XMLs/WaukeshaReport.txt
+
+printf " \n"
+echo $(grep -i 'Nmap done' /XMLs/Waukesha/W*) >> /XMLs/WaukeshaReport.txt
+printf " \n"
+echo "•  smb-vuln-ms17-010: Vulnerable: $(cat /XMLs/Waukesha/W* | grep 'State: VULNERABLE' -B 25 | grep -e 'Nmap scan report for' -e NetBIOS -c)" >> /XMLs/WaukeshaReport.txt
+printf " \n"
+echo "•  smb-vuln-ms17-010: Could not connect to 'IPC$' $(grep 'Could not connect to ' -c /XMLs/Waukesha/W*)"  >> /XMLs/WaukeshaReport.txt
+printf " \n"
+echo "•  smb-vuln-ms17-010: This system is patched: $(grep 'This system is patched' -c /XMLs/Waukesha/W*)" >> /XMLs/WaukeshaReport.txt
+printf " \n"
+echo "Raw scan XML scan output: "  >> /XMLs/WaukeshaReport.txt
