@@ -1,4 +1,6 @@
 
 folderName=/; echo; df -h $folderName; echo; du -ch $folderName --max-depth=5 -x /proc/* 2>/dev/null | grep -v total | sort -rh | head -n 15; echo
 
+ du -x -h --max-depth=1 / 2>/dev/null | sort -hr
+
  cat server.txt | xargs -I{} -n1 -P0 ssh {} ' mkdir -p /path/ && wget <uri> -P /path/ ; yum install package -y'
