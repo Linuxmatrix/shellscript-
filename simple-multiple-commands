@@ -6,3 +6,7 @@ cat server.txt |  xargs -I {} ssh -q -o StrictHostKeyChecking=no -o UserKnownHos
 
 ssh -oUserKnownHostsFile=known_hosts
  cat server.txt | xargs -I{} -n1 -P0 ssh {} ' mkdir -p /path/ && wget <uri> -P /path/ ; yum install package -y'
+
+for y in {1..20}; do echo $y >&2; for pid in $(ps -C java --noheader -o pid); do jstack -l $pid >> jstack-$pid.out; top -b -n 1 -H -p $pid >> high-cpu-$pid.out; done; top -b -n 1 -H >> high-cpu.out; sleep 10; done
+
+
