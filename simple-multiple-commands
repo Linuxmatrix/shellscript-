@@ -4,5 +4,5 @@ folderName=/; echo; df -h $folderName; echo; du -ch $folderName --max-depth=5 -x
  du -x -h --max-depth=1 / 2>/dev/null | sort -hr
 cat server.txt |  xargs -I {} ssh -q -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null {} 'uptime'
 
-
+ssh -oUserKnownHostsFile=known_hosts
  cat server.txt | xargs -I{} -n1 -P0 ssh {} ' mkdir -p /path/ && wget <uri> -P /path/ ; yum install package -y'
