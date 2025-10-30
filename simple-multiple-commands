@@ -9,4 +9,17 @@ ssh -oUserKnownHostsFile=known_hosts
 
 for y in {1..20}; do echo $y >&2; for pid in $(ps -C java --noheader -o pid); do jstack -l $pid >> jstack-$pid.out; top -b -n 1 -H -p $pid >> high-cpu-$pid.out; done; top -b -n 1 -H >> high-cpu.out; sleep 10; done
 
+# Show errors from the last hour
+alias jcerr='journalctl -p err --since="1 hour ago"'
 
+# Show logs from current boot only
+alias jcboot='journalctl -b -0'
+
+# Show recent logs for a service (usage: jcserv nginx)
+alias jcserv='function _f() { journalctl -u $1.service --since="30 minutes ago"; }; _f'
+
+# Show all logs from the last 10 minutes
+alias jclast='journalctl --since="10 minutes ago"'
+
+# Follow new errors live
+alias jctail='journalctl -f -p err'
